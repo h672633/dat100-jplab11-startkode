@@ -5,46 +5,99 @@ import no.hvl.dat100.jplab11.oppgave1.*;
 
 public class Blogg {
 
-	// TODO: objektvariable 
-
+	private Innlegg[] innleggtabell;
+	private int nesteledig;
+ 
 	public Blogg() {
-		throw new UnsupportedOperationException(TODO.constructor("Blogg"));
+		innleggtabell = new Innlegg[20];
 	}
 
 	public Blogg(int lengde) {
-		throw new UnsupportedOperationException(TODO.constructor("Blogg"));
+		innleggtabell = new Innlegg[lengde];
 	}
 
 	public int getAntall() {
-		throw new UnsupportedOperationException(TODO.method());
+		return nesteledig;
 	}
 	
 	public Innlegg[] getSamling() {
-		throw new UnsupportedOperationException(TODO.method());
+		return innleggtabell;
 
 	}
 	
 	public int finnInnlegg(Innlegg innlegg) {
 
-		throw new UnsupportedOperationException(TODO.method());
+		for (int i = 0; i < nesteledig; i++) {
+			if(this.innleggtabell[i].erLik(innlegg) == true) {
+				return i;
+				
+			} 
+		}
+		return -1;
 	}
 
 	public boolean finnes(Innlegg innlegg) {
-		throw new UnsupportedOperationException(TODO.method());
+		
+		boolean sjekk = false;
+		int innleggId = innlegg.getId();
+		int innleggT;
+		
+		for (int i = 0; i < nesteledig; i++) {
+			innleggT = innleggtabell[i].getId();
+			if (innleggId == innleggT) {
+				sjekk = true;
+				
+			}
+			
+		}
+		return sjekk;
 	}
 
 	public boolean ledigPlass() {
-		throw new UnsupportedOperationException(TODO.method());
-
+		boolean ledig;
+		
+		if (nesteledig < innleggtabell.length) {
+			ledig = true;
+		
+		}else {
+			ledig = false;
+			
+		} 
+		return ledig;
 	}
 	
 	public boolean leggTil(Innlegg innlegg) {
-
-		throw new UnsupportedOperationException(TODO.method());
+		boolean sjekk;
+		
+		boolean plass = ledigPlass();
+		boolean exist = finnes(innlegg);
+		
+		if (plass == true && exist == false) {
+			this.innleggtabell[nesteledig] = innlegg;
+			nesteledig++;
+			sjekk = true;
+		} else {
+			sjekk = false;
+		}
+		return sjekk;
+		
 	}
 	
 	public String toString() {
-		throw new UnsupportedOperationException(TODO.method());
+		String [] tabell = new String[nesteledig];
+		String utTxt = nesteledig + "\n";
+		
+		for(int i = 0; i < nesteledig; i++) {
+			
+		 tabell[i] = innleggtabell[i] + "";
+			
+		}
+		for(int i = 0; i < tabell.length; i++){
+			utTxt += "" + tabell[i].toString();
+		}
+		
+		
+		return utTxt;
 	}
 
 	// valgfrie oppgaver nedenfor
